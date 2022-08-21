@@ -3,25 +3,27 @@
 public class BackgroundTaskCalculateWorkTimePerDay : BackgroundService
 {
     private readonly IServiceProvider _services;
-    private readonly IHostApplicationLifetime _lifetime;
+
+    //private readonly IHostApplicationLifetime _lifetime;
     private readonly TaskCompletionSource _source = new();
+
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly Task2DbContext _context;
 
     public BackgroundTaskCalculateWorkTimePerDay(IServiceProvider services, IHostApplicationLifetime lifetime, IHttpClientFactory httpClientFactory, Task2DbContext context)
     {
         _services = services;
-        _lifetime = lifetime;
+        //_lifetime = lifetime;
         _httpClientFactory = httpClientFactory;
 
         _context = context;
 
-        _lifetime.ApplicationStarted.Register(() => _source.SetResult());
+        /*        _lifetime.ApplicationStarted.Register(() => _source.SetResult());*/
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        await _source.Task.ConfigureAwait(false);
+        /*    await _source.Task.ConfigureAwait(false);*/
         // Wait for the task to complete!
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -37,13 +39,16 @@ public class BackgroundTaskCalculateWorkTimePerDay : BackgroundService
                 {
                     var response = await client.GetAsync($"/api/Users/CalculateWorkTimePerDay?userId=" +
                        $"{item.UserId}&day={item.Day}&month={item.Month}&year={item.Year}");
-                    while (response.StatusCode.ToString() != "200")
-                    {
-                        response = await client.GetAsync($"/api/Users/CalculateWorkTimePerDay?userId=" +
-                     $"{item.UserId}&day={item.Day}&month={item.Month}&year={item.Year}");
-                    }
+                    /* while (response.StatusCode.ToString() != "200")
+                     {
+                         response = await client.GetAsync($"/api/Users/CalculateWorkTimePerDay?userId=" +
+                      $"{item.UserId}&day={item.Day}&month={item.Month}&year={item.Year}");
+                     }*/
 
                     var body = await response.Content.ReadAsStringAsync();
+
+                    // simulate cho kestrel chay cham hon 10s nhung ko can' wait van~ ko bi crash
+                    // => ko can' await _source.Task.ConfigureAwait(false), asp.net core co' ve? da~ tu. wait cho den khi kestrel available( not sure !! )
                 }
             }
         }

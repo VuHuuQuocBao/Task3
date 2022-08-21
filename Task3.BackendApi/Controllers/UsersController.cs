@@ -2,6 +2,7 @@
 using Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Task3.BackendApi.Controllers
 {
@@ -15,6 +16,12 @@ namespace Task3.BackendApi.Controllers
         {
             _context = context;
         }
+
+      /*  public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            Task.Delay(10000);
+            base.OnActionExecuting(context);
+        }*/
 
         [HttpGet]
         public ActionResult Index()

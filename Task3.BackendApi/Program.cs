@@ -1,13 +1,17 @@
 using Data.EF;
 using Microsoft.EntityFrameworkCore;
+using Task3.BackendApi;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(option =>
+{
+    option.Filters.Add(typeof(DelayFilter));
+});
 
 builder.Services.AddHttpClient();
 
-/*builder.Services.AddHostedService<BackgroundTaskCalculateWorkTimePerDay>();*/
+builder.Services.AddHostedService<BackgroundTaskCalculateWorkTimePerDay>();
 
 var connectionString = builder.Configuration.GetConnectionString("Task2Db");
 
@@ -18,7 +22,7 @@ builder.Services.AddDbContext<Task2DbContext>(options =>
 
 builder.Services.AddSwaggerGen(c =>
 {
-    //c.SwaggerDoc("v1", new OpenApiInfo { Title = "Task1", Version = "v1" });
+    //c.SwaggerDoc("v1", new OpenApiInf o { Title = "Task1", Version = "v1" });
 });
 
 var app = builder.Build();
