@@ -210,18 +210,18 @@ namespace Task3.BackendApi.Controllers
         /// </summary>
         /// <returns></returns>
 
-        /* [HttpGet("FilterAndPaging")]
-         public IActionResult FilterAndPaging(int pageIndex, int pageSize, int month, int year, Guid userId)
-         {
-             // select + filter
-             var query = _context.UserDailyTimesheetModels.Where(x => x.Month == month && x.Year == year && x.UserId == userId);
+        [HttpGet("FilterAndPaging")]
+        public IActionResult FilterAndPaging(int pageIndex, int pageSize, int month, int year, Guid userId)
+        {
+            // select + filter
+            var query = _context.UserDailyTimesheetModels.Where(x => x.Month == month && x.Year == year && x.UserId == userId);
 
-             // paging
-             var data = query.Skip((pageIndex - 1) * pageSize)
-                 .Take(pageSize).ToList();
+            // paging
+            var data = query.Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize).ToList();
 
-             return Ok(data);
-             // we should add some index cause query a bit slow
-         }*/
+            return Ok(data);
+            // we should add some index cause query a bit slow
+        }
     }
 }
