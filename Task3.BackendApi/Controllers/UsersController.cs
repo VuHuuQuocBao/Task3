@@ -170,40 +170,40 @@ namespace Task3.BackendApi.Controllers
         /// </summary>
         /// <returns></returns>
 
-        /*  [HttpGet("SeedData")]
-          public async Task<IActionResult> SeedData()
-          {
-              List<UserDailyTimesheetModel> bulkSeedData = new List<UserDailyTimesheetModel>();
-              for (int i = 0; i < 1000; i++)
-              {
-                  var newUser = Guid.NewGuid();
-                  for (int j = 0; j < 12; j++)
-                  {
-                      var rand = new Random();
-                      var allWorkDay = this.GetAllWorkDay(2022, j + 1, rand.Next(2) == 1);
-                      foreach (var item in allWorkDay)
-                      {
-                          bulkSeedData.Add(new UserDailyTimesheetModel()
-                          {
-                              UserId = newUser,
-                              Day = item,
-                              Month = j + 1,
-                              Year = 2022,
-                              IsLate = null,
-                              TotalLateInSeconds = null,
-                              TotalActualWorkingTimeInSeconds = null,
-                              Status = null,
-                              CheckInTime = new DateTime(2022, j + 1, item, rand.Next(7, 10), rand.Next(0, 60), rand.Next(0, 60)),
-                              CheckOutTime = new DateTime(2022, j + 1, item, rand.Next(17, 19), rand.Next(0, 60), rand.Next(0, 60))
-                          });
-                      }
-                  }
-              }
-              await _context.UserDailyTimesheetModels.AddRangeAsync(bulkSeedData);
-              _context.SaveChanges();
+        [HttpGet("SeedData")]
+        public async Task<IActionResult> SeedData()
+        {
+            List<UserDailyTimesheetModel> bulkSeedData = new List<UserDailyTimesheetModel>();
+            for (int i = 0; i < 1000; i++)
+            {
+                var newUser = Guid.NewGuid();
+                for (int j = 0; j < 12; j++)
+                {
+                    var rand = new Random();
+                    var allWorkDay = this.GetAllWorkDay(2022, j + 1, rand.Next(2) == 1);
+                    foreach (var item in allWorkDay)
+                    {
+                        bulkSeedData.Add(new UserDailyTimesheetModel()
+                        {
+                            UserId = newUser,
+                            Day = item,
+                            Month = j + 1,
+                            Year = 2022,
+                            IsLate = null,
+                            TotalLateInSeconds = null,
+                            TotalActualWorkingTimeInSeconds = null,
+                            Status = null,
+                            CheckInTime = new DateTime(2022, j + 1, item, rand.Next(7, 10), rand.Next(0, 60), rand.Next(0, 60)),
+                            CheckOutTime = new DateTime(2022, j + 1, item, rand.Next(17, 19), rand.Next(0, 60), rand.Next(0, 60))
+                        });
+                    }
+                }
+            }
+            await _context.UserDailyTimesheetModels.AddRangeAsync(bulkSeedData);
+            _context.SaveChanges();
 
-              return Ok();
-          }*/
+            return Ok();
+        }
 
         /// <summary>
         /// phan trang
